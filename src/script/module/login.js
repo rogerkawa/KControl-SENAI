@@ -17,12 +17,11 @@ export default function acesso() {
     event.preventDefault();
 
     const turno = document.querySelector('[name="turno"]:checked');
-
+    
     if (
       setor.value.length == 0 ||
       sala.value.length == 0 ||
       responsavel.value.trimStart() == 0 ||
-      hrsEntrega.value.length == 0 ||
       hrsRetirada.value.length == 0
     ) {
       modal.style.display = "flex";
@@ -33,13 +32,27 @@ export default function acesso() {
         turno: turno.value,
         pessoa: responsavel.value,
         retirada: hrsRetirada.value,
-        entrega: hrsEntrega.value,
       };
+
+      const existeRegistro = chaves.some((item) => // Verifica se pelomenos um elemento do array atende a condição
+        item.sala === stats.sala &&
+        item.turno === stats.turno
+      )
+      if(existeRegistro){
+        Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Sala ja registrada nesse turno",
+      });
+      return;
+      }
 
       chaves.push(stats);
       console.log(stats);
 
       localStorage.setItem("chaves", JSON.stringify(chaves));
+
+      
 
       //atualiza os dados
       const novosDados = contarSetores();
@@ -60,8 +73,15 @@ export default function acesso() {
     }
   });
 
+
+  const senhaVerif = 'admin'
   /* Botão de Verificar registros */
-  const verif = document.querySelector(".btn-outline-primary");
+  const verif = document.querySelector(".btn-outline-primary")
+
+    /* const promptSenha = prompt('Digite a senha para verificar os registros')
+    if(promptSenha === senhaVerif){
+      window.location.href = "stats.html";
+    } */
 
   verif.addEventListener("click", () => {
     if (chaves.length == 0) {

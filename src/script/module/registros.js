@@ -22,7 +22,12 @@ export default function registro(){
                 <td>${chaves.pessoa}</td>
                 <td>${chaves.turno}</td>
                 <td>${chaves.retirada}</td>
-                <td>${chaves.entrega}</td>
+                <td>0</td>
+                <td>
+                <button class="btn btn-primary editar" data-id="${indice}">
+                            Editar
+                </button>
+                </td>
                 <td>
                 <button class="btn btn-danger remover" data-id="${indice}">
                             Remover
