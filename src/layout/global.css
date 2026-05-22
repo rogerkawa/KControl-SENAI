@@ -39,7 +39,7 @@ body{
     padding: 20px;
     gap: 20px;
     justify-content: center;
-    background: var(--bg);
+    background: var(--bg)!important;
     color: var(--text);
     transition: .3s;
 }
